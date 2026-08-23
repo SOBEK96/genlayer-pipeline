@@ -26,7 +26,7 @@ export function Dashboard() {
       <div className="flex min-h-[60vh] items-center justify-center">
         <TiltCard className="w-full max-w-lg" max={8}>
           <div className="space-y-4 text-center animate-float">
-            <h1 className="text-3xl font-extrabold text-gradient">Enter the Spatial Console</h1>
+            <h1 className="text-3xl font-extrabold text-gradient">Enter the PipeLine Console</h1>
             <p className="text-slate-400">
               Connect an EVM wallet to view live account stats, submit intelligent-contract
               actions, and track validator consensus in real time.

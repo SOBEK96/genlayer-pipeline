@@ -6,7 +6,8 @@ import { NetworkBadge } from "@/components/web3/NetworkBadge";
 import { clsx } from "@/lib/cx";
 
 const NAV = [
-  { to: "/", label: "Dashboard", end: true },
+  { to: "/", label: "Home", end: true },
+  { to: "/dashboard", label: "Dashboard", end: false },
   { to: "/action", label: "Action Hub", end: false },
   { to: "/history", label: "History", end: false },
 ];
@@ -47,10 +48,12 @@ export function Layout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-white/5 bg-base-900/50 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-accent-cyan to-accent-violet shadow-glow" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-accent-cyan to-accent-violet font-mono text-sm font-black text-base-900 shadow-glow">
+              P
+            </div>
             <div className="leading-tight">
-              <p className="text-sm font-extrabold tracking-tight text-slate-50">GenLayer</p>
-              <p className="-mt-0.5 text-[11px] text-slate-400">Spatial Console</p>
+              <p className="text-sm font-extrabold tracking-tight text-slate-50">PipeLine</p>
+              <p className="-mt-0.5 text-[11px] text-slate-400">GenLayer CI/CD Console</p>
             </div>
           </div>
 
@@ -101,7 +104,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">{children}</main>
 
       <footer className="mx-auto max-w-7xl px-4 pb-10 pt-4 text-center text-xs text-slate-600 sm:px-6">
-        GenLayer Spatial Console · immersive Web3 interface
+        PipeLine · target-agnostic CI/CD for GenLayer intelligent contracts
       </footer>
     </div>
   );

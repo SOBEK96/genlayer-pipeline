@@ -4,6 +4,7 @@ import { ToastProvider } from "@/context/ToastContext";
 import { AmbientGlow } from "@/components/3d/AmbientGlow";
 import { ToastViewport } from "@/components/ui/ToastViewport";
 import { Layout } from "@/components/ui/Layout";
+import { Home } from "@/views/Home";
 import { Dashboard } from "@/views/Dashboard";
 import { ActionHub } from "@/views/ActionHub";
 import { History } from "@/views/History";
@@ -16,10 +17,11 @@ export default function App() {
           <AmbientGlow />
           <Layout>
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/action" element={<ActionHub />} />
               <Route path="/history" element={<History />} />
-              <Route path="*" element={<Dashboard />} />
+              <Route path="*" element={<Home />} />
             </Routes>
           </Layout>
           <ToastViewport />
