@@ -5,10 +5,12 @@ import { GlassCard } from "@/components/3d/GlassCard";
 import { Spinner } from "@/components/ui/Spinner";
 import { NetworkBadge } from "@/components/web3/NetworkBadge";
 import { ConnectButton } from "@/components/web3/ConnectButton";
+import { ContractSettings } from "@/components/web3/ContractSettings";
 import { useWallet } from "@/hooks/useWallet";
 import { useNetwork } from "@/hooks/useNetwork";
 import { useContractAction } from "@/hooks/useContractAction";
-import { demoAbi, contractAddress } from "@/lib/contract";
+import { useContractAddress } from "@/hooks/useContractAddress";
+import { demoAbi } from "@/lib/contract";
 import { clsx } from "@/lib/cx";
 
 interface FormState {
@@ -31,14 +33,14 @@ export function ActionHub() {
   const [form, setForm] = useState<FormState>({ document: "", priority: 3 });
   const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({});
 
-  const action = useContractAction({ address: contractAddress, abi: demoAbi });
+  const contract = useContractAddress();
+  const action = useContractAction({ address: contract.address, abi: demoAbi });
   const errors = useMemo(() => validate(form), [form]);
   const isValid = Object.keys(errors).length === 0;
 
   const blockers: string[] = [];
   if (!isConnected) blockers.push("Connect a wallet");
   if (isConnected && !isCorrectNetwork) blockers.push("Switch to the target network");
-  if (!contractAddress) blockers.push("Set VITE_CONTRACT_ADDRESS");
 
   const canSubmit = isValid && blockers.length === 0 && !action.isBusy;
 
@@ -124,7 +126,7 @@ export function ActionHub() {
               </button>
               <button
                 className="btn-ghost"
-                disabled={!isValid || !contractAddress || action.isBusy}
+                disabled={!isValid || action.isBusy}
                 onClick={() =>
                   action
                     .estimateGas({ functionName: "submitClaim", args: [form.document, form.priority] })
@@ -157,6 +159,16 @@ export function ActionHub() {
             <ConnectButton />
             <NetworkBadge />
           </div>
+        </GlassCard>
+
+        <GlassCard>
+          <ContractSettings
+            address={contract.address}
+            source={contract.source}
+            isCustom={contract.isCustom}
+            onSave={contract.save}
+            onClear={contract.clear}
+          />
         </GlassCard>
 
         <GlassCard glow>
