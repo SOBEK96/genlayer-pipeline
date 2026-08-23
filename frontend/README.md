@@ -7,7 +7,7 @@ React + TypeScript + Vite + Tailwind + Framer Motion, wallet + contract layer on
 ## Quick start
 
 ```bash
-cd /Users/ehs4n/genlayer-frontend
+cd frontend               # from the PipeLine repository root
 cp .env.example .env      # fill in chain id / RPC / WalletConnect projectId
 npm install
 npm run dev               # http://localhost:5173

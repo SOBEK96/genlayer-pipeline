@@ -5,7 +5,7 @@
 > No hardcoded project/contract references — what to run is resolved dynamically
 > from CLI args, an optional `pipeline.toml`, or auto-discovery.
 
-This is a **standalone** automation toolkit (workspace root: `/Users/ehs4n/Pipeline`).
+This is a **standalone** automation toolkit (the workspace root is this repository).
 It runs the pipeline *against* a target GenLayer project — pass `TARGET=/path/to/project`
 (default: the current directory) — and always writes artifacts back **into this
 workspace**, so a run never leaves traces in the target repo. The same reproducible
@@ -208,7 +208,7 @@ before enabling the deploy stage.
 Install the CLI (editable, with the GenLayer toolchain extra):
 
 ```bash
-cd /Users/ehs4n/Pipeline
+cd Pipeline                            # the repository root
 pip install -e '.[toolchain]'          # or: make install
 ```
 
@@ -318,7 +318,7 @@ provider. Triggers are best-effort and never mask the original failure.
 
 ## 7. Local verification steps (via the Makefile)
 
-Run these from `/Users/ehs4n/Pipeline` to verify the whole system locally.
+Run these from the repository root to verify the whole system locally.
 
 ```bash
 # 0. install the CI toolchain (one time)
