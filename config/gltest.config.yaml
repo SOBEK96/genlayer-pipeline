@@ -1,0 +1,36 @@
+# gltest network configuration for the GenLayer CI/CD pipeline.
+#
+# Copy to the PROJECT ROOT as `gltest.config.yaml` (gltest reads it from CWD):
+#     cp Pipeline/config/gltest.config.yaml ./gltest.config.yaml
+#
+# Secrets are NEVER inlined here — they are pulled from environment variables so
+# this file is safe to commit. The ${VAR} placeholders are resolved by gltest /
+# the shell at run time.
+
+networks:
+  # Local simulator — the default target for direct-mode + integration tests.
+  localnet:
+    rpc_url: http://127.0.0.1:4000/api
+    chain_type: localnet
+    # Direct-mode tests mock the LLM and need no key; leave unset.
+
+  # Studionet — the deployment target for this pipeline (Stage 4).
+  studionet:
+    rpc_url: ${GENLAYER_RPC_URL}          # e.g. https://studio.genlayer.com/api
+    chain_type: studionet
+    private_key: ${GENLAYER_PRIVATE_KEY}  # injected from CI secret at run time
+
+  # Public test networks (available for promotion beyond Studionet).
+  testnet_asimov:
+    rpc_url: ${GENLAYER_RPC_URL}
+    chain_type: testnet_asimov
+    private_key: ${GENLAYER_PRIVATE_KEY}
+
+default_network: localnet
+
+# Receipt polling — tuned to fail loudly rather than hang forever.
+default_wait_interval: 3000   # ms between receipt checks
+default_wait_retries: 50      # -> ~150s ceiling before a hard timeout
+
+contracts_dir: contracts
+artifacts_dir: artifacts

@@ -1,0 +1,25 @@
+# Example pipeline config. Copy to the ROOT of the GenLayer project you are
+# targeting as `pipeline.toml` (auto-discovered), or pass --config <path>.
+#
+# Every key is optional. Precedence (highest first):
+#   CLI args  >  this file  >  convention defaults  >  auto-discovery
+# With no config at all, the toolkit auto-discovers every *.py in contracts/.
+
+[project]
+contracts_dir = "contracts"
+tests_dir     = "tests/direct"
+frontend_dir  = "frontend"
+# Pin the contract(s) explicitly, or omit to auto-discover the contracts dir.
+# Single:  contract = "contracts/my_contract.py"
+# Many:    contract = ["contracts/a.py", "contracts/b.py"]
+
+[deploy]
+retries = 2       # broadcast retries before rollback
+backoff = 5.0     # base seconds between retries (linear)
+verify  = true    # post-deploy smoke check before promoting the ledger pointer
+
+[triggers]
+# Optional command run on ANY stage failure. Receives context via env:
+#   PIPELINE_FAILED_STAGE, PIPELINE_EXIT_CODE, PIPELINE_LOG, PIPELINE_ERROR
+# e.g. a Slack/webhook notifier — the toolkit hardcodes no provider.
+# on_failure = "scripts/notify.sh"

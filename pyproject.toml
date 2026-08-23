@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "genlayer-pipeline"
+version = "0.1.0"
+description = "Target-agnostic CI/CD & automated-testing toolkit for GenLayer intelligent contracts"
+readme = "README.md"
+requires-python = ">=3.11"          # tomllib (stdlib) is used for config
+license = { text = "MIT" }
+authors = [{ name = "Pipeline Team" }]
+keywords = ["genlayer", "ci-cd", "pipeline", "smart-contracts", "devops", "testing"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Testing",
+]
+# Core toolkit is standard-library only (zero required runtime deps).
+dependencies = []
+
+[project.optional-dependencies]
+# External GenLayer toolchain the lint/test/build/deploy stages shell out to.
+# `genlayer` (the deploy CLI) ships via npm and is not a pip dependency.
+toolchain = [
+    "genlayer-test==0.29.2",   # provides the `gltest` runner
+    "genvm-linter",            # provides `genvm-lint`
+]
+dev = ["pytest>=7"]
+build = ["build>=1.0", "twine>=5.0"]
+
+[project.scripts]
+genlayer-pipeline = "genlayer_pipeline.run_pipeline:main"
+pipeline-cli = "genlayer_pipeline.run_pipeline:main"
+genlayer-pipeline-report = "genlayer_pipeline.report:main"
+
+[project.urls]
+Documentation = "https://docs.genlayer.com"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["selftests"]
+addopts = "-q"

@@ -1,0 +1,28 @@
+# Pipeline artifacts (logs, reports, junit, ledger) — regenerated each run
+artifacts/
+
+# Python / packaging
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.eggs/
+build/
+.pytest_cache/
+
+# Secrets / local config
+.env
+gltest.config.yaml          # generated at root; the template lives in config/
+
+# Node (only present when targeting a project with a frontend)
+node_modules/
+dist/
+
+# Local Claude Code permission cache
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
